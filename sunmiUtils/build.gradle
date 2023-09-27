@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -41,4 +42,17 @@ dependencies {
     implementation 'com.sunmi:printerlibrary:1.0.18'
     //zxing to generate barcode
     implementation files('libs/core-3.3.0.jar')
+}
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.appitiza'
+                artifactId = 'custom-alert'
+                version = '1.0.0'
+            }
+        }
+    }
 }
