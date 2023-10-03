@@ -10,6 +10,7 @@ android {
 
     defaultConfig {
         minSdk 26
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -27,6 +28,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -49,7 +53,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.appitiza'
-                artifactId = 'sunmi-utils'
+                artifactId = 'sunmiutils'
                 version = '1.0.2'
             }
         }
