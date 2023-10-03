@@ -1,4 +1,4 @@
-package net.appitiza.sunmiutils
+package net.appitiza.lib.sunmiutils
 
 enum class PrinterStatusEnum(val code :Int) {
     RUNNING(1),

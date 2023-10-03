@@ -1,4 +1,4 @@
-package net.appitiza.sunmiutils
+package net.appitiza.lib.sunmiutils
 
 enum class AlignmentType(val value : Int) {
     LEFT_ALIGNED(0),

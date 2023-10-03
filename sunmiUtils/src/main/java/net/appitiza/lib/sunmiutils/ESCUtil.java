@@ -1,4 +1,4 @@
-package net.appitiza.sunmiutils;
+package net.appitiza.lib.sunmiutils;
 
 import android.graphics.Bitmap;
 

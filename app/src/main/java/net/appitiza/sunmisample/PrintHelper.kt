@@ -3,8 +3,8 @@ package net.appitiza.sunmisample
 import android.content.Context
 import android.os.RemoteException
 import android.util.Log
-import net.appitiza.sunmiutils.AlignmentType
-import net.appitiza.sunmiutils.SunmiPrintHelper
+import net.appitiza.lib.sunmiutils.AlignmentType
+import net.appitiza.lib.sunmiutils.SunmiPrintHelper
 
 class PrintHelper : SunmiPrintHelper {
     var isPrinterServiceActivated = false

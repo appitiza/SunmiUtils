@@ -1,4 +1,4 @@
-package net.appitiza.sunmiutils
+package net.appitiza.lib.sunmiutils
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.RemoteException
