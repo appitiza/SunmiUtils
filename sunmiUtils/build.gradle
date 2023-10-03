@@ -48,9 +48,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-
                 groupId = 'com.github.appitiza'
-                artifactId = 'custom-alert'
+                artifactId = 'sunmi-utils'
                 version = '1.0.0'
             }
         }
