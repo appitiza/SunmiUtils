@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.sunmi:printerlibrary:1.0.18'
     implementation 'com.google.zxing:core:3.4.1'
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
 }
 afterEvaluate {
     publishing {
