@@ -44,8 +44,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     //sunmi
     implementation 'com.sunmi:printerlibrary:1.0.18'
-    //zxing to generate barcode
-    implementation files('libs/core-3.3.0.jar')
+    implementation 'com.google.zxing:core:3.4.1'
 }
 afterEvaluate {
     publishing {
