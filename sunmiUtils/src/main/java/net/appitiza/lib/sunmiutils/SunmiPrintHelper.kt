@@ -10,6 +10,7 @@ import com.sunmi.peripheral.printer.InnerPrinterException
 import com.sunmi.peripheral.printer.InnerPrinterManager
 import com.sunmi.peripheral.printer.SunmiPrinterService
 import com.sunmi.peripheral.printer.WoyouConsts
+import net.appitiza.lib.sunmiutils.barcode_utils.Code128
 
 open class SunmiPrintHelper {
 
@@ -277,7 +278,7 @@ open class SunmiPrintHelper {
         }
     }
 
-     fun isLargePaper(): Boolean {
+    fun isLargePaper(): Boolean {
         return when (mPrinterService?.printerModal) {
             DeviceTypeEnum.SIXTY.code -> {
                 false
@@ -292,15 +293,29 @@ open class SunmiPrintHelper {
             }
         }
     }
+
     fun labelLocate() {
         mPrinterService?.labelLocate()
     }
+
     fun labelOutput() {
         mPrinterService?.labelOutput()
     }
-    fun printBitmap(barcodeBitmap: Bitmap) {
 
-        printBitmap(barcodeBitmap)
+    private fun getBarCodeBitmap(
+        context: Context,
+        barcode: String,
+        width: Int,
+        height: Int
+    ): Bitmap {
+        val code = Code128(context)
+        code.data = barcode
+        return code.getBitmap(width, height)
+    }
+
+    fun printBitmap(context: Context, barcode: String, width: Int, height: Int) {
+        val bitmap = getBarCodeBitmap(context, barcode, width, height)
+        mPrinterService?.printBitmap(bitmap, null)
     }
 
 }
