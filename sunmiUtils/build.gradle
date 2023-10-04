@@ -51,7 +51,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.appitiza'
                 artifactId = 'sunmi-utils'
-                version = '1.0.8'
+                version = '1.0.9'
             }
         }
     }
