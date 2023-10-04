@@ -1,6 +1,7 @@
 package net.appitiza.lib.sunmiutils
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.RemoteException
 import android.util.Log
@@ -296,6 +297,10 @@ open class SunmiPrintHelper {
     }
     fun labelOutput() {
         mPrinterService?.labelOutput()
+    }
+    fun printBitmap(barcodeBitmap: Bitmap) {
+
+        printBitmap(barcodeBitmap)
     }
 
 }
