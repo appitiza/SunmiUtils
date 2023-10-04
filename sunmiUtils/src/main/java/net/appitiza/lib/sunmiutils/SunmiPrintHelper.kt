@@ -1,4 +1,5 @@
 package net.appitiza.lib.sunmiutils
+
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.RemoteException
@@ -25,11 +26,11 @@ open class SunmiPrintHelper {
         }
     }
 
-    fun initPrinterService(context: Context?,callback:(Boolean)->Unit) {
+    fun initPrinterService(context: Context?, callback: (Boolean) -> Unit) {
         try {
             val ret = InnerPrinterManager.getInstance().bindService(
                 context,
-                object : InnerPrinterCallback(){
+                object : InnerPrinterCallback() {
                     override fun onConnected(service: SunmiPrinterService) {
                         mPrinterService = service
                         checkPrinterService(service)
@@ -54,17 +55,18 @@ open class SunmiPrintHelper {
     fun deInitPrinterService(context: Context?) {
         try {
             if (mPrinterService != null) {
-                InnerPrinterManager.getInstance().unBindService(context, object : InnerPrinterCallback(){
-                    override fun onConnected(service: SunmiPrinterService) {
-                        mPrinterService = service
-                        checkPrinterService(service)
-                    }
+                InnerPrinterManager.getInstance()
+                    .unBindService(context, object : InnerPrinterCallback() {
+                        override fun onConnected(service: SunmiPrinterService) {
+                            mPrinterService = service
+                            checkPrinterService(service)
+                        }
 
-                    override fun onDisconnected() {
-                        mPrinterService = null
-                        mPrinter = PrinterCheckStatus.LostSunmiPrinterCheck.value
-                    }
-                })
+                        override fun onDisconnected() {
+                            mPrinterService = null
+                            mPrinter = PrinterCheckStatus.LostSunmiPrinterCheck.value
+                        }
+                    })
                 mPrinterService = null
                 mPrinter = PrinterCheckStatus.LostSunmiPrinterCheck.value
             }
@@ -73,17 +75,18 @@ open class SunmiPrintHelper {
         }
     }
 
-     fun checkPrinterService(service: SunmiPrinterService) {
+    fun checkPrinterService(service: SunmiPrinterService) {
         var ret = false
         try {
             ret = InnerPrinterManager.getInstance().hasPrinter(service)
         } catch (e: InnerPrinterException) {
             Log.e("SunmiPrintHelper", "showPrinterStatus", e)
         }
-        mPrinter = if (ret) PrinterCheckStatus.FoundSunmiPrinterCheck.value else PrinterCheckStatus.NoSunmiPrinterCheck.value
+        mPrinter =
+            if (ret) PrinterCheckStatus.FoundSunmiPrinterCheck.value else PrinterCheckStatus.NoSunmiPrinterCheck.value
     }
 
-     fun setFontStyle(
+    fun setFontStyle(
         isBold: Boolean,
         isUnderLine: Boolean,
         fontSize: Float,
@@ -97,6 +100,7 @@ open class SunmiPrintHelper {
                     WoyouConsts.ENABLE
                 )
             }
+
             false -> {
                 mPrinterService?.setPrinterStyle(
                     WoyouConsts.ENABLE_UNDERLINE,
@@ -109,18 +113,18 @@ open class SunmiPrintHelper {
                 true -> {
                     mPrinterService?.setPrinterStyle(WoyouConsts.ENABLE_BOLD, WoyouConsts.ENABLE)
                 }
+
                 false -> {
                     mPrinterService?.setPrinterStyle(WoyouConsts.ENABLE_BOLD, WoyouConsts.DISABLE)
                 }
             }
-        }
-        catch (e: RemoteException) {
+        } catch (e: RemoteException) {
             mPrinterService?.sendRAWData(ESCUtil.boldOff(), null)
         }
         mPrinterService?.setAlignment(alignment.value, null)
     }
 
-     fun printDivider(isDark: Boolean) {
+    fun printDivider(isDark: Boolean) {
         val fontSize = if (isDark) {
             36f
         } else {
@@ -132,6 +136,7 @@ open class SunmiPrintHelper {
                 DeviceTypeEnum.EIGHTY.code -> {
                     "_______________________________\n"
                 }
+
                 else -> {
                     "_____________________\n"
                 }
@@ -142,6 +147,7 @@ open class SunmiPrintHelper {
                 DeviceTypeEnum.EIGHTY.code -> {
                     "*******************************************************\n"
                 }
+
                 else -> {
                     "**************************************\n"
                 }
@@ -158,20 +164,22 @@ open class SunmiPrintHelper {
         mPrinterService?.printText(text, null)
     }
 
-     fun addNewLine(number: Int = 1) {
+    fun addNewLine(number: Int = 1) {
         mPrinterService?.lineWrap(number, null)
     }
 
-     fun moveToNextLine() {
+    fun moveToNextLine() {
         mPrinterService?.printText(
             "\n",
             null
         )
     }
-     fun printLogo(context: Context,logo:Int) {
-        val bitmap = BitmapFactory.decodeResource(context.resources,logo)
+
+    fun printLogo(context: Context, logo: Int) {
+        val bitmap = BitmapFactory.decodeResource(context.resources, logo)
         mPrinterService?.printBitmap(bitmap, null)
     }
+
     fun showPrinterStatus() {
         if (mPrinterService == null) {
             return
@@ -218,13 +226,16 @@ open class SunmiPrintHelper {
             }
         }
     }
-    fun outPaper(){
+
+    fun outPaper() {
         mPrinterService?.autoOutPaper(null)
     }
-    fun setAlignment(alignment: Int){
+
+    fun setAlignment(alignment: Int) {
         mPrinterService?.setAlignment(alignment, null)
     }
-    fun printColumnsString(title:Array<String>,width:IntArray,align:IntArray){
+
+    fun printColumnsString(title: Array<String>, width: IntArray, align: IntArray) {
         mPrinterService?.printColumnsString(
             title,
             width,
@@ -232,16 +243,20 @@ open class SunmiPrintHelper {
             null
         )
     }
-    fun printText(text:String){
+
+    fun printText(text: String) {
         mPrinterService?.printText(text, null)
     }
-    fun printQRCode(text:String, modulesize:Int,  errorlevel:Int){
+
+    fun printQRCode(text: String, modulesize: Int, errorlevel: Int) {
         mPrinterService?.printQRCode(text, modulesize, errorlevel, null)
     }
-    fun isPrinterServiceAvailable():Boolean{
+
+    fun isPrinterServiceAvailable(): Boolean {
         return mPrinterService != null
     }
-    fun isPrinterAvailable():Boolean{
+
+    fun isPrinterAvailable(): Boolean {
         return when (mPrinter) {
             PrinterCheckStatus.NoSunmiPrinterCheck.value -> {
                 false
@@ -260,4 +275,27 @@ open class SunmiPrintHelper {
             }
         }
     }
+
+     fun isLargePaper(): Boolean {
+        return when (mPrinterService?.printerModal) {
+            DeviceTypeEnum.SIXTY.code -> {
+                false
+            }
+
+            DeviceTypeEnum.EIGHTY.code -> {
+                true
+            }
+
+            else -> {
+                false
+            }
+        }
+    }
+    fun labelLocate() {
+        mPrinterService?.labelLocate()
+    }
+    fun labelOutput() {
+        mPrinterService?.labelOutput()
+    }
+
 }
